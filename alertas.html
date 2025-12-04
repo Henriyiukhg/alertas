@@ -2,7 +2,7 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<title>Alertas Móveis</title>
+<title>Alertas Fixos</title>
 
 <style>
     body {
@@ -10,117 +10,50 @@
         padding: 0;
         overflow: hidden;
         background: transparent;
-        width: 100vw;
-        height: 100vh;
+        width: 1920px;
+        height: 1080px;
+        position: relative;
     }
 
-    .widget {
-        position: absolute;
-        width: 400px;
-        height: 250px;
+    iframe {
+        width: 800px;
+        height: 600px;
         border: none;
-        cursor: move;
+        position: absolute;
     }
 
-    /* POSIÇÕES FIXAS ANTES DO USUÁRIO MOVER */
-
-    /* Follow - topo central */
+    /* FOLLOW – centro superior */
     #follow {
         top: 20px;
         left: 50%;
         transform: translateX(-50%);
     }
 
-    /* PIX - inferior central */
+    /* PIX – centro inferior */
     #pix {
         bottom: 20px;
         left: 50%;
         transform: translateX(-50%);
     }
 
-    /* QR Code - canto inferior esquerdo */
+    /* QR CODE – canto inferior esquerdo */
     #qrcode {
         bottom: 20px;
         left: 20px;
     }
-
-    iframe {
-        width: 100%;
-        height: 100%;
-        border: none;
-    }
 </style>
 
-<script>
-function makeDraggable(el) {
-    let pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
-
-    const saved = localStorage.getItem(el.id);
-    if (saved) {
-        const { x, y } = JSON.parse(saved);
-        el.style.left = x + "px";
-        el.style.top = y + "px";
-        el.style.transform = "none"; // remove centralização ao mover
-    }
-
-    el.onmousedown = dragMouseDown;
-
-    function dragMouseDown(e) {
-        e.preventDefault();
-        pos3 = e.clientX;
-        pos4 = e.clientY;
-        document.onmouseup = closeDrag;
-        document.onmousemove = elementDrag;
-    }
-
-    function elementDrag(e) {
-        e.preventDefault();
-        pos1 = pos3 - e.clientX;
-        pos2 = pos4 - e.clientY;
-        pos3 = e.clientX;
-        pos4 = e.clientY;
-
-        el.style.top = (el.offsetTop - pos2) + "px";
-        el.style.left = (el.offsetLeft - pos1) + "px";
-        el.style.transform = "none"; // remove alinhamento automático
-    }
-
-    function closeDrag() {
-        document.onmouseup = null;
-        document.onmousemove = null;
-
-        localStorage.setItem(el.id, JSON.stringify({
-            x: el.offsetLeft,
-            y: el.offsetTop
-        }));
-    }
-}
-</script>
-
 </head>
-
 <body>
 
-<!-- ALERTA FOLLOW -->
-<div class="widget" id="follow">
-    <iframe src="https://widgets.streamelements.com/host/618699e8e829424c8294bbb5/5ce37ee5-b0be-491d-bda3-ab231a8236b8/4DiAIVMZb35A9NHD7ksmpMLdP7Dsk3dCJjv3ugen6X2-83T5"></iframe>
-</div>
+    <!-- ALERTA DE FOLLOW -->
+    <iframe id="follow" src="https://widgets.streamelements.com/host/618699e8e829424c8294bbb5/5ce37ee5-b0be-491d-bda3-ab231a8236b8/4DiAIVMZb35A9NHD7ksmpMLdP7Dsk3dCJjv3ugen6X2-83T5"></iframe>
 
-<!-- PIX -->
-<div class="widget" id="pix">
-    <iframe src="https://widget.livepix.gg/embed/6cad63d4-a78d-4da1-bab2-7d371dd357b5"></iframe>
-</div>
+    <!-- ALERTA DE PIX -->
+    <iframe id="pix" src="https://widget.livepix.gg/embed/6cad63d4-a78d-4da1-bab2-7d371dd357b5"></iframe>
 
-<!-- QR CODE -->
-<div class="widget" id="qrcode">
-    <iframe src="https://widget.livepix.gg/embed/d13249f7-d4cf-45be-81ce-dce5537b4835"></iframe>
-</div>
-
-<script>
-    makeDraggable(document.getElementById("follow"));
-    makeDraggable(document.getElementById("pix"));
-    makeDraggable(document.getElementById("qrcode"));
-</script>
+    <!-- QR CODE -->
+    <iframe id="qrcode" src="https://widget.livepix.gg/embed/d13249f7-d4cf-45be-81ce-dce5537b4835"></iframe>
 
 </body>
 </html>
