@@ -2,58 +2,84 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<title>Alertas Fixos</title>
+<title>DEBUG - Tamanhos dos Alertas</title>
 
 <style>
     body {
         margin: 0;
         padding: 0;
         overflow: hidden;
-        background: transparent;
+        background: black; /* Para facilitar ver os widgets */
         width: 1920px;
         height: 1080px;
         position: relative;
     }
 
+    .debug-box {
+        position: absolute;
+        border: 4px solid red;  /* CAIXA VERMELHA */
+        background: rgba(255, 0, 0, 0.15); /* leve transparência */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .debug-box span {
+        color: white;
+        font-size: 22px;
+        font-weight: bold;
+        text-shadow: 2px 2px 2px black;
+    }
+
     iframe {
+        width: 100%;
+        height: 100%;
+        border: none;
+    }
+
+    /* POSIÇÃO TEMPORÁRIA SÓ PARA MEDIR */
+    #follow-box {
+        top: 50px;
+        left: calc(50% - 400px);
         width: 800px;
         height: 600px;
-        border: none;
-        position: absolute;
     }
 
-    /* FOLLOW – centro superior */
-    #follow {
-        top: 20px;
-        left: 50%;
-        transform: translateX(-50%);
+    #pix-box {
+        top: 300px;
+        left: calc(50% - 400px);
+        width: 800px;
+        height: 600px;
     }
 
-    /* PIX – centro inferior */
-    #pix {
-        bottom: 20px;
-        left: 50%;
-        transform: translateX(-50%);
-    }
-
-    /* QR CODE – canto inferior esquerdo */
-    #qrcode {
-        bottom: 20px;
-        left: 20px;
+    #qrcode-box {
+        top: 600px;
+        left: 50px;
+        width: 800px;
+        height: 600px;
     }
 </style>
 
 </head>
 <body>
 
-    <!-- ALERTA DE FOLLOW -->
-    <iframe id="follow" src="https://widgets.streamelements.com/host/618699e8e829424c8294bbb5/5ce37ee5-b0be-491d-bda3-ab231a8236b8/4DiAIVMZb35A9NHD7ksmpMLdP7Dsk3dCJjv3ugen6X2-83T5"></iframe>
+    <!-- FOLLOW -->
+    <div id="follow-box" class="debug-box">
+        <span>FOLLOW — MEDIR TAMANHO REAL</span>
+        <iframe src="https://widgets.streamelements.com/host/618699e8e829424c8294bbb5/5ce37ee5-b0be-491d-bda3-ab231a8236b8/4DiAIVMZb35A9NHD7ksmpMLdP7Dsk3dCJjv3ugen6X2-83T5"></iframe>
+    </div>
 
-    <!-- ALERTA DE PIX -->
-    <iframe id="pix" src="https://widget.livepix.gg/embed/6cad63d4-a78d-4da1-bab2-7d371dd357b5"></iframe>
+    <!-- PIX -->
+    <div id="pix-box" class="debug-box">
+        <span>PIX — MEDIR TAMANHO REAL</span>
+        <iframe src="https://widget.livepix.gg/embed/6cad63d4-a78d-4da1-bab2-7d371dd357b5"></iframe>
+    </div>
 
     <!-- QR CODE -->
-    <iframe id="qrcode" src="https://widget.livepix.gg/embed/d13249f7-d4cf-45be-81ce-dce5537b4835"></iframe>
+    <div id="qrcode-box" class="debug-box">
+        <span>QR CODE — MEDIR TAMANHO REAL</span>
+        <iframe src="https://widget.livepix.gg/embed/d13249f7-d4cf-45be-81ce-dce5537b4835"></iframe>
+    </div>
 
 </body>
 </html>
