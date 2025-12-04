@@ -9,10 +9,9 @@
         margin: 0;
         padding: 0;
         overflow: hidden;
-        width: 1920px;
-        height: 1080px;
         background: transparent;
-        position: relative;
+        width: 100vw;
+        height: 100vh;
     }
 
     .widget {
@@ -21,6 +20,28 @@
         height: 250px;
         border: none;
         cursor: move;
+    }
+
+    /* POSIÇÕES FIXAS ANTES DO USUÁRIO MOVER */
+
+    /* Follow - topo central */
+    #follow {
+        top: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+    /* PIX - inferior central */
+    #pix {
+        bottom: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+    /* QR Code - canto inferior esquerdo */
+    #qrcode {
+        bottom: 20px;
+        left: 20px;
     }
 
     iframe {
@@ -39,6 +60,7 @@ function makeDraggable(el) {
         const { x, y } = JSON.parse(saved);
         el.style.left = x + "px";
         el.style.top = y + "px";
+        el.style.transform = "none"; // remove centralização ao mover
     }
 
     el.onmousedown = dragMouseDown;
@@ -57,8 +79,10 @@ function makeDraggable(el) {
         pos2 = pos4 - e.clientY;
         pos3 = e.clientX;
         pos4 = e.clientY;
+
         el.style.top = (el.offsetTop - pos2) + "px";
         el.style.left = (el.offsetLeft - pos1) + "px";
+        el.style.transform = "none"; // remove alinhamento automático
     }
 
     function closeDrag() {
@@ -72,25 +96,23 @@ function makeDraggable(el) {
     }
 }
 </script>
+
 </head>
 
 <body>
 
-<!-- FOLLOW (centro superior) -->
-<div class="widget" id="follow"
-     style="left: 760px; top: 20px;">
+<!-- ALERTA FOLLOW -->
+<div class="widget" id="follow">
     <iframe src="https://widgets.streamelements.com/host/618699e8e829424c8294bbb5/5ce37ee5-b0be-491d-bda3-ab231a8236b8/4DiAIVMZb35A9NHD7ksmpMLdP7Dsk3dCJjv3ugen6X2-83T5"></iframe>
 </div>
 
-<!-- PIX ALERT (centro inferior) -->
-<div class="widget" id="pix"
-     style="left: 760px; top: 810px;">
+<!-- PIX -->
+<div class="widget" id="pix">
     <iframe src="https://widget.livepix.gg/embed/6cad63d4-a78d-4da1-bab2-7d371dd357b5"></iframe>
 </div>
 
-<!-- QR CODE (canto inferior esquerdo) -->
-<div class="widget" id="qrcode"
-     style="left: 20px; top: 810px;">
+<!-- QR CODE -->
+<div class="widget" id="qrcode">
     <iframe src="https://widget.livepix.gg/embed/d13249f7-d4cf-45be-81ce-dce5537b4835"></iframe>
 </div>
 
