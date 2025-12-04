@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Alertas Móveis</title>
+
+<style>
+    body {
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+        background: transparent;
+    }
+
+    .widget {
+        position: absolute;
+        width: 400px;   /* ajuste se quiser */
+        height: 250px;  /* ajuste se quiser */
+        border: none;
+        cursor: move;
+    }
+
+    iframe {
+        width: 100%;
+        height: 100%;
+        border: none;
+    }
+</style>
+
+<script>
+// Função para fazer blocos arrastáveis e salvar posição
+function makeDraggable(el) {
+    let pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
+
+    // Carregar posição salva
+    const saved = localStorage.getItem(el.id);
+    if (saved) {
+        const { x, y } = JSON.parse(saved);
+        el.style.left = x + "px";
+        el.style.top = y + "px";
+    }
+
+    el.onmousedown = dragMouseDown;
+
+    function dragMouseDown(e) {
+        e = e || window.event;
+        e.preventDefault();
+
+        pos3 = e.clientX;
+        pos4 = e.clientY;
+
+        document.onmouseup = closeDrag;
+        document.onmousemove = elementDrag;
+    }
+
+    function elementDrag(e) {
+        e = e || window.event;
+        e.preventDefault();
+
+        pos1 = pos3 - e.clientX;
+        pos2 = pos4 - e.clientY;
+
+        pos3 = e.clientX;
+        pos4 = e.clientY;
+
+        el.style.top = (el.offsetTop - pos2) + "px";
+        el.style.left = (el.offsetLeft - pos1) + "px";
+    }
+
+    function closeDrag() {
+        document.onmouseup = null;
+        document.onmousemove = null;
+
+        // Salvar posição
+        localStorage.setItem(el.id, JSON.stringify({
+            x: el.offsetLeft,
+            y: el.offsetTop
+        }));
+    }
+}
+</script>
+</head>
+
+<body>
+
+<!-- FOLLOW -->
+<div class="widget" id="follow" style="left: 50px; top: 50px;">
+    <iframe src="https://widgets.streamelements.com/host/618699e8e829424c8294bbb5/5ce37ee5-b0be-491d-bda3-ab231a8236b8/4DiAIVMZb35A9NHD7ksmpMLdP7Dsk3dCJjv3ugen6X2-83T5"></iframe>
+</div>
+
+<!-- PIX ALERT -->
+<div class="widget" id="pix" style="left: 500px; top: 50px;">
+    <iframe src="https://widget.livepix.gg/embed/6cad63d4-a78d-4da1-bab2-7d371dd357b5"></iframe>
+</div>
+
+<!-- PIX QR CODE -->
+<div class="widget" id="qrcode" style="left: 500px; top: 350px;">
+    <iframe src="https://widget.livepix.gg/embed/d13249f7-d4cf-45be-81ce-dce5537b4835"></iframe>
+</div>
+
+<script>
+    makeDraggable(document.getElementById("follow"));
+    makeDraggable(document.getElementById("pix"));
+    makeDraggable(document.getElementById("qrcode"));
+</script>
+
+</body>
+</html>
