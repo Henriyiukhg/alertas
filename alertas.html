@@ -2,7 +2,7 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<title>Alertas Responsivos</title>
+<title>Alertas 1920x1080</title>
 
 <style>
     body {
@@ -10,18 +10,21 @@
         padding: 0;
         overflow: hidden;
         background: transparent;
-        width: 100vw;
-        height: 100vh;
+        width: 1920px;
+        height: 1080px;
         position: relative;
     }
 
     .widget {
         position: absolute;
-        width: 22vw;   /* largura responsiva */
-        max-width: 400px;
-        height: 18vh;  /* altura responsiva */
-        max-height: 300px;
+        width: 400px;   /* tamanho padrão dos widgets */
+        height: 250px;
         cursor: move;
+    }
+
+    #qrcode {
+        width: 250px;   /* QR geralmente menor */
+        height: 250px;
     }
 
     iframe {
@@ -32,16 +35,15 @@
 </style>
 
 <script>
-// Função arrastar + salvar posição
+// Arrastar + salvar posição específica em px
 function makeDraggable(el) {
     let pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
 
-    // Carregar posição salva
     const saved = localStorage.getItem(el.id);
     if (saved) {
         const { x, y } = JSON.parse(saved);
-        el.style.left = x;
-        el.style.top = y;
+        el.style.left = x + "px";
+        el.style.top = y + "px";
     }
 
     el.onmousedown = dragMouseDown;
@@ -72,9 +74,13 @@ function makeDraggable(el) {
         document.onmouseup = null;
         document.onmousemove = null;
 
+        localStorage.setItem(el.id, {
+            x: el.offsetLeft,
+            y: el.offsetTop
+        });
         localStorage.setItem(el.id, JSON.stringify({
-            x: el.style.left,
-            y: el.style.top
+            x: el.offsetLeft,
+            y: el.offsetTop
         }));
     }
 }
@@ -83,18 +89,27 @@ function makeDraggable(el) {
 
 <body>
 
-<!-- FOLLOW – CENTRO SUPERIOR -->
-<div class="widget" id="follow" style="left: 50%; top: 3%; transform: translateX(-50%);">
+<!-- FOLLOW – EXATAMENTE no centro superior -->
+<div class="widget" id="follow" style="
+    left: calc(50% - 200px); 
+    top: 30px;
+">
     <iframe src="https://widgets.streamelements.com/host/618699e8e829424c8294bbb5/5ce37ee5-b0be-491d-bda3-ab231a8236b8/4DiAIVMZb35A9NHD7ksmpMLdP7Dsk3dCJjv3ugen6X2-83T5"></iframe>
 </div>
 
-<!-- PIX – CENTRO INFERIOR -->
-<div class="widget" id="pix" style="left: 50%; top: 70%; transform: translateX(-50%);">
+<!-- PIX – EXATAMENTE no centro inferior -->
+<div class="widget" id="pix" style="
+    left: calc(50% - 200px);
+    top: 760px;
+">
     <iframe src="https://widget.livepix.gg/embed/6cad63d4-a78d-4da1-bab2-7d371dd357b5"></iframe>
 </div>
 
-<!-- QR CODE – INFERIOR ESQUERDO -->
-<div class="widget" id="qrcode" style="left: 2%; top: 70%; width: 200px; height: 200px;">
+<!-- QR CODE – EXATAMENTE no canto inferior esquerdo -->
+<div class="widget" id="qrcode" style="
+    left: 30px;
+    top: 760px;
+">
     <iframe src="https://widget.livepix.gg/embed/d13249f7-d4cf-45be-81ce-dce5537b4835"></iframe>
 </div>
 
