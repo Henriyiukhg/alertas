@@ -2,7 +2,7 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<title>Alertas Móveis</title>
+<title>Alertas Responsivos</title>
 
 <style>
     body {
@@ -10,16 +10,17 @@
         padding: 0;
         overflow: hidden;
         background: transparent;
-        width: 1920px;   /* Tamanho base */
-        height: 1080px;
+        width: 100vw;
+        height: 100vh;
         position: relative;
     }
 
     .widget {
         position: absolute;
-        width: 400px;
-        height: 250px;
-        border: none;
+        width: 22vw;   /* largura responsiva */
+        max-width: 400px;
+        height: 18vh;  /* altura responsiva */
+        max-height: 300px;
         cursor: move;
     }
 
@@ -31,7 +32,7 @@
 </style>
 
 <script>
-// Função de arrastar + salvar posição
+// Função arrastar + salvar posição
 function makeDraggable(el) {
     let pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
 
@@ -39,8 +40,8 @@ function makeDraggable(el) {
     const saved = localStorage.getItem(el.id);
     if (saved) {
         const { x, y } = JSON.parse(saved);
-        el.style.left = x + "px";
-        el.style.top = y + "px";
+        el.style.left = x;
+        el.style.top = y;
     }
 
     el.onmousedown = dragMouseDown;
@@ -72,8 +73,8 @@ function makeDraggable(el) {
         document.onmousemove = null;
 
         localStorage.setItem(el.id, JSON.stringify({
-            x: el.offsetLeft,
-            y: el.offsetTop
+            x: el.style.left,
+            y: el.style.top
         }));
     }
 }
@@ -82,18 +83,18 @@ function makeDraggable(el) {
 
 <body>
 
-<!-- FOLLOW → Centro Superior -->
-<div class="widget" id="follow" style="left: 760px; top: 20px;">
+<!-- FOLLOW – CENTRO SUPERIOR -->
+<div class="widget" id="follow" style="left: 50%; top: 3%; transform: translateX(-50%);">
     <iframe src="https://widgets.streamelements.com/host/618699e8e829424c8294bbb5/5ce37ee5-b0be-491d-bda3-ab231a8236b8/4DiAIVMZb35A9NHD7ksmpMLdP7Dsk3dCJjv3ugen6X2-83T5"></iframe>
 </div>
 
-<!-- PIX ALERT → Centro Inferior -->
-<div class="widget" id="pix" style="left: 760px; top: 700px;">
+<!-- PIX – CENTRO INFERIOR -->
+<div class="widget" id="pix" style="left: 50%; top: 70%; transform: translateX(-50%);">
     <iframe src="https://widget.livepix.gg/embed/6cad63d4-a78d-4da1-bab2-7d371dd357b5"></iframe>
 </div>
 
-<!-- QR CODE → Canto Inferior Esquerdo -->
-<div class="widget" id="qrcode" style="left: 20px; bottom: 20px; width: 250px; height: 250px;">
+<!-- QR CODE – INFERIOR ESQUERDO -->
+<div class="widget" id="qrcode" style="left: 2%; top: 70%; width: 200px; height: 200px;">
     <iframe src="https://widget.livepix.gg/embed/d13249f7-d4cf-45be-81ce-dce5537b4835"></iframe>
 </div>
 
